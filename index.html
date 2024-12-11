@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evasion Use Only - Decryption</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .input, .output {
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .note {
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Evasion Use Only - Decryption</h1>
+    <div class="container">
+        <label for="encryptedInput">Enter Encrypted Text:</label>
+        <textarea id="encryptedInput" class="input" placeholder="Paste encrypted text here..." rows="4"></textarea>
+        
+        <button onclick="decrypt()">Decrypt</button>
+        
+        <label for="decryptedOutput">Decrypted Output:</label>
+        <textarea id="decryptedOutput" class="output" readonly rows="4"></textarea>
+        
+        <p class="note">Note: This decryption tool is for authorized use only. Please use responsibly.</p>
+    </div>
+
+    <script>
+        const decryptionKey = {
+            "3379": "3",
+            "1093": "2",
+            "7651": "5",
+            "2295": "8",
+            "4125": "4",
+            "8940": "6",
+            "1743": "0",
+            "9032": "7",
+            "5328": "9",
+            "9184": "+",
+            "3027": "-",
+            "7043": "x",
+            "6157": "÷"
+        };
+
+        function decrypt() {
+            let encryptedText = document.getElementById("encryptedInput").value;
+            let decryptedText = "";
+            
+            // Split the encrypted text into chunks of 4 digits
+            let chunks = encryptedText.match(/.{1,4}/g);
+            
+            if (chunks) {
+                for (let chunk of chunks) {
+                    // Decrypt each chunk
+                    decryptedText += decryptionKey[chunk] || chunk;  // If key not found, just append the chunk
+                }
+            }
+            
+            document.getElementById("decryptedOutput").value = decryptedText;
+        }
+    </script>
+
+</body>
+</html>
