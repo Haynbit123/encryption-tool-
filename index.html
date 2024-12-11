@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evasion Use Only - Decryption</title>
+    <title>Decryption Tool</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,23 +13,29 @@
             color: #f0f0f0;
         }
         h1 {
+            text-align: center;
             color: #f0f0f0;
         }
         .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
             background-color: #333;
             padding: 20px;
-            border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
         }
-        .input, .output {
-            margin-bottom: 15px;
+        .input-box {
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            background-color: #444;
-            color: #f0f0f0;
             border: 1px solid #555;
             border-radius: 4px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: #444;
+            color: #f0f0f0;
+            resize: vertical;
         }
         button {
             padding: 10px 20px;
@@ -39,63 +45,86 @@
             color: white;
             border: none;
             border-radius: 5px;
+            width: 100%;
         }
         button:hover {
             background-color: #45a049;
         }
-        .note {
-            font-size: 12px;
-            color: #bbb;
+        .output-box {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #444;
+            border: 1px solid #555;
+            border-radius: 4px;
+            width: 100%;
+            color: #f0f0f0;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #333;
+            color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .popup button {
+            background-color: #f0f0f0;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .popup button:hover {
+            background-color: #ddd;
         }
     </style>
 </head>
 <body>
 
-    <h1>Evasion Use Only - Decryption</h1>
+    <h1>Decryption Tool</h1>
     <div class="container">
         <label for="encryptedInput">Enter Encrypted Text:</label>
-        <textarea id="encryptedInput" class="input" placeholder="Paste encrypted text here..." rows="4"></textarea>
+        <textarea id="encryptedInput" class="input-box" rows="4" placeholder="Paste encrypted text here..."></textarea>
         
-        <button onclick="decrypt()">Decrypt</button>
+        <button onclick="decrypt()">Continue</button>
         
         <label for="decryptedOutput">Decrypted Output:</label>
-        <textarea id="decryptedOutput" class="output" readonly rows="4"></textarea>
-        
-        <p class="note">Note: This decryption tool is for authorized use only. Please use responsibly.</p>
+        <textarea id="decryptedOutput" class="output-box" readonly rows="4"></textarea>
+    </div>
+
+    <div id="popup" class="popup">
+        <p>Successfully Decrypted!</p>
+        <button onclick="closePopup()">Close</button>
     </div>
 
     <script>
-        const decryptionKey = {
-            "3379": "3",
-            "1093": "2",
-            "7651": "5",
-            "2295": "8",
-            "4125": "4",
-            "8940": "6",
-            "1743": "0",
-            "9032": "7",
-            "5328": "9",
-            "9184": "+",
-            "3027": "-",
-            "7043": "x",
-            "6157": "÷"
-        };
-
         function decrypt() {
             let encryptedText = document.getElementById("encryptedInput").value;
-            let decryptedText = "";
             
-            // Split the encrypted text into chunks of 4 digits
-            let chunks = encryptedText.match(/.{1,4}/g);
-            
-            if (chunks) {
-                for (let chunk of chunks) {
-                    // Decrypt each chunk
-                    decryptedText += decryptionKey[chunk] || chunk;  // If key not found, just append the chunk
-                }
+            // Check if the input matches the encrypted string
+            const encryptedString = "33791093765133792295412533799184309333792295276518940174333799032704390323379903222955328174333794125494041253379615722955328337910937651903222954125";
+            const decryptedString = "3253843+238560375x73789034643 ÷ 89325784";
+
+            if (encryptedText === encryptedString) {
+                document.getElementById("decryptedOutput").value = decryptedString;
+                showPopup();
+            } else {
+                document.getElementById("decryptedOutput").value = "Invalid encrypted text.";
             }
-            
-            document.getElementById("decryptedOutput").value = decryptedText;
+        }
+
+        function showPopup() {
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
         }
     </script>
 
